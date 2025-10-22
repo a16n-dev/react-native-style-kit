@@ -1,6 +1,6 @@
 {
   "name": "react-native-style-kit",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Toolkit for theming and variants in React Native",
   "type": "module",
   "packageManager": "pnpm@9.15.4",
