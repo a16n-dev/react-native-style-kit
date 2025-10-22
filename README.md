@@ -115,6 +115,7 @@ const Button = () => {
 
 ```
 
+---
 
 ### Variants
 
@@ -193,6 +194,8 @@ const Button = () => {
 }
 ```
 
+---
+
 ## 📏 Breakpoints
 
 You'll first need to configure a set of breakpoints, and pass them to your `StyleKitProvider`
@@ -236,6 +239,8 @@ const useStyles = makeUseStyles(({ bp }) => ({
   }
 }));
 ```
+
+---
 
 ### Performance
 `react-native-style-kit` is designed to be as performant as possible without leveraging any compile-time optimisations. Only styles that depend on theme or runtime values subscribe to state updates (although in practice these are not likely to change often). 
