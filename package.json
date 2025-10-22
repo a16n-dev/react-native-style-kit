@@ -1,0 +1,44 @@
+{
+  "name": "react-native-style-kit",
+  "version": "0.3.0",
+  "description": "toolkit for theming and variants in React Native",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a16n-dev/react-native-style-kit.git"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "tsdown --watch",
+    "build": "tsdown",
+    "test": "vitest",
+    "check": "tsc --noEmit",
+    "lint": "eslint . "
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-native": ">=0.70",
+    "react-native-safe-area-context": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": ">=17.0.0",
+    "eslint": "^9.36.0",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.2",
+    "tsdown": "^0.15.6",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.44.1"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "packageManager": "pnpm@9.15.4"
+}
