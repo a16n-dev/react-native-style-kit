@@ -31,9 +31,7 @@ const Main = () => {
 }
 ```
 
-## Concepts
-
-### Creating styles
+## Creating styles
 
 Styles are created via `makeUseStyles()` which is a drop-in replacement for `StyleSheet.create()`. This function returns a hook you can call within your component to access the styles.
 
@@ -57,7 +55,7 @@ const Button = () => {
 
 ---
 
-### 🎨 Theming
+## 🎨 Theming
 
 Define a theme, then pass it to your `StyleKitProvider`. If you're using TypeScript, also augment the theme type to get the correct typings across your app.
 ```tsx
@@ -117,7 +115,7 @@ const Button = () => {
 
 ---
 
-### Variants
+## 🧩 Variants
 
 To use variants, first define a type for your variants, and pass it as a generic to `makeUseStyles()`. You can then define variant-specific styles within the `variants` key of your style definition.
 
@@ -174,7 +172,9 @@ const useStyles = makeUseStyles<ButtonVariants>()(() => ({
 
 > Note: Compound variants are applied in the order they are defined, so later definitions will override earlier ones. Compound variants also take precedence over regular variants.
 
-### Runtime values
+---
+
+## 📱 Runtime values
 
 You can also access runtime values such as screen dimensions or safe area insets within your stylesheets, through the `rt` value passed to the style function
 
