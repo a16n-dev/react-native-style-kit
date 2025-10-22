@@ -1,11 +1,11 @@
 # React Native Style Kit
 
-Styling API for React Native, engineered as a foundational layer for building design systems and component libraries. What you get:
+A Styling API for React Native, designed as a lightweight set of tools to quickly build beautiful apps. You get:
 
+- 🎨 Theming
+- 📏 Breakpoint logic
 - 🧩 Variants/compound variants inspired by CVA
-- 🎨 Theming & theme switching
-- 📱 Breakpoint logic
-- 📏 Access to runtime values (safe area insets, screen dimensions) in stylesheets
+- 📱 Access to runtime values (safe area insets, screen dimensions) in stylesheets
 
 All with no babel/metro plugins, full compatibility with 3rd party components, and a focus on performance.
 
@@ -55,7 +55,9 @@ const Button = () => {
 }
 ```
 
-### Theming
+---
+
+### 🎨 Theming
 
 Define a theme, then pass it to your `StyleKitProvider`. If you're using TypeScript, also augment the theme type to get the correct typings across your app.
 ```tsx
@@ -189,6 +191,50 @@ const Button = () => {
     
   return <Pressable style={styles.root}/>
 }
+```
+
+## 📏 Breakpoints
+
+You'll first need to configure a set of breakpoints, and pass them to your `StyleKitProvider`
+
+```tsx
+
+const breakpoints = {
+    xs: 0, // First breakpoint should start with 0
+    sm: 360,
+    md: 768,
+    lg: 1024,
+};
+
+type BreakpointType = typeof breakpoints;
+
+declare module 'react-native-style-kit' {
+  interface StyleKitBreakpoints extends BreakpointType {}
+}
+
+const Main = () => {
+  return (
+    <StyleKitProvider breakpoints={breakpoints}>
+      <App />
+    </StyleKitProvider>
+  );
+}
+```
+
+You can create breakpoint conditional styles by using the `bp` key within your style definitions.
+
+```tsx
+import { makeUseStyles } from 'react-native-style-kit';
+
+const useStyles = makeUseStyles(({ bp }) => ({
+  root: {
+    height: 32, 
+    // Apply a different style above the 'md' breakpoint 
+    ...bp.above.md({
+      height: 48,
+    })
+  }
+}));
 ```
 
 ### Performance

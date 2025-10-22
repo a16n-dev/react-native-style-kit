@@ -1,7 +1,7 @@
 {
   "name": "react-native-style-kit",
   "version": "0.3.0",
-  "description": "toolkit for theming and variants in React Native",
+  "description": "Toolkit for theming and variants in React Native",
   "type": "module",
   "repository": {
     "type": "git",
