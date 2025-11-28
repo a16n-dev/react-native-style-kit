@@ -1,5 +1,5 @@
 {
-  "name": "react-native-style-kit",
+  "name": "react-native-styling-kit",
   "version": "1.1.1",
   "description": "Toolkit for theming and variants in React Native",
   "type": "module",
@@ -18,9 +18,9 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./plugins": {
-      "import": "./dist/plugins/index.js",
-      "require": "./dist/plugins/index.cjs"
+    "./utility": {
+      "import": "./dist/utility/index.js",
+      "require": "./dist/utility/index.cjs"
     },
     "./package.json": "./package.json"
   },
