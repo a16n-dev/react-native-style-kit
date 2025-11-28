@@ -14,14 +14,14 @@ All with no babel/metro plugins, full compatibility with 3rd party components, a
 
 You know the drill 😄
 ```bash
-pnpm install react-native-style-kit
+pnpm install react-native-styling-kit
 ```
 
 
 You're almost ready to go! You'll also need to wrap your app in `<StyleKitProvider>` (more on this later)
 
 ```tsx
-import { StyleKitProvider } from 'react-native-style-kit';
+import { StyleKitProvider } from 'react-native-styling-kit';
 
 const Main = () => {
   return (
@@ -37,7 +37,7 @@ const Main = () => {
 Styles are created via `makeUseStyles()` which is a drop-in replacement for `StyleSheet.create()`. This function returns a hook you can call within your component to access the styles.
 
 ```tsx
-import { makeUseStyles } from 'react-native-style-kit';
+import { makeUseStyles } from 'react-native-styling-kit';
 
 
 const useStyles = makeUseStyles({
@@ -65,7 +65,7 @@ const theme = {...};
 
 type ThemeType = typeof theme;
 
-declare module 'react-native-style-kit' {
+declare module 'react-native-styling-kit' {
   interface StyleKitTheme extends ThemeType {}
 }
 
@@ -81,7 +81,7 @@ const Main = () => {
 
 You can then create styles that access the theme by passing a function to`makeUseStyles()` instead of an object
 ```tsx
-import { makeUseStyles } from 'react-native-style-kit';
+import { makeUseStyles } from 'react-native-styling-kit';
 
 const useStyles = makeUseStyles(({ theme }) => ({
   root: {
@@ -100,7 +100,7 @@ const Button = () => {
 You can also access the theme directly with the `useTheme()` hook.
 
 ```tsx
-import { useTheme } from 'react-native-style-kit';
+import { useTheme } from 'react-native-styling-kit';
 
 const Button = () => {
   const theme = useTheme();
@@ -123,7 +123,7 @@ To use variants, first define a type for your variants, and pass it as a generic
 Then, in the `useStyles()` hook within your component, pass it an object with the current variant values.
 
 ```tsx
-import { makeUseStyles } from 'react-native-style-kit';
+import { makeUseStyles } from 'react-native-styling-kit';
 
 interface ButtonVariants {
     variant: 'outlined' | 'filled';
@@ -150,7 +150,7 @@ const Button = ({ variant = 'filled' }: Partial<ButtonVariants>) => {
 
 You can also define compound variants that apply when multiple variant conditions are met
 ```tsx
-import { makeUseStyles } from 'react-native-style-kit';
+import { makeUseStyles } from 'react-native-styling-kit';
 
 interface ButtonVariants {
     variant: 'outlined' | 'filled';
@@ -180,7 +180,7 @@ const useStyles = makeUseStyles<ButtonVariants>()(() => ({
 You can also access runtime values such as screen dimensions or safe area insets within your stylesheets, through the `rt` value passed to the style function
 
 ```tsx
-import { makeUseStyles } from 'react-native-style-kit';
+import { makeUseStyles } from 'react-native-styling-kit';
 
 const useStyles = makeUseStyles(({rt}) => ({
   root: {
@@ -212,7 +212,7 @@ const breakpoints = {
 
 type BreakpointType = typeof breakpoints;
 
-declare module 'react-native-style-kit' {
+declare module 'react-native-styling-kit' {
   interface StyleKitBreakpoints extends BreakpointType {}
 }
 
@@ -228,7 +228,7 @@ const Main = () => {
 You can create breakpoint conditional styles by using the `bp` key within your style definitions.
 
 ```tsx
-import { makeUseStyles } from 'react-native-style-kit';
+import { makeUseStyles } from 'react-native-styling-kit';
 
 const useStyles = makeUseStyles(({ bp }) => ({
   root: {
@@ -244,10 +244,10 @@ const useStyles = makeUseStyles(({ bp }) => ({
 ---
 
 ## 🔩 Utility Stylesheets
-Having a set of utility styles for applying common styles such as margins, paddings, and flex properties is an especially powerful tool for composing UI. To help with this, `react-native-style-kit` provides a number of presets that can be used to compose utility stylesheets.
+Having a set of utility styles for applying common styles such as margins, paddings, and flex properties is an especially powerful tool for composing UI. To help with this, `react-native-styling-kit` provides a number of presets that can be used to compose utility stylesheets.
 
 ```tsx
-import { preset, dynamicSpacing } from 'react-native-style-kit/utility';
+import { preset, dynamicSpacing } from 'react-native-styling-kit/utility';
 
 // Create a stylesheet by composing different utility presets
 const a = StyleSheet.create({
@@ -270,6 +270,6 @@ const a = StyleSheet.create({
 ---
 
 ### Performance
-`react-native-style-kit` is designed to be as performant as possible without leveraging any compile-time optimisations. Only styles that depend on theme or runtime values subscribe to state updates (although in practice these are not likely to change often). 
+`react-native-styling-kit` is designed to be as performant as possible without leveraging any compile-time optimisations. Only styles that depend on theme or runtime values subscribe to state updates (although in practice these are not likely to change often). 
 
 Styles are memoized and cached to ensure they are only recalculated when absolutely necessary. Computed styles are also passed to `StyleSheet.create()` to take advantage of the optimisations provided by React Native.

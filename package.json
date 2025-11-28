@@ -6,7 +6,7 @@
   "packageManager": "pnpm@9.15.4",
   "repository": {
     "type": "git",
-    "url": "https://github.com/a16n-dev/react-native-style-kit.git"
+    "url": "https://github.com/a16n-dev/react-native-styling-kit.git"
   },
   "license": "MIT",
   "sideEffects": false,
