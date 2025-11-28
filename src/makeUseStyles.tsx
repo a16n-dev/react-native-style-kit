@@ -1,9 +1,4 @@
-import {
-  type ImageStyle,
-  StyleSheet,
-  type TextStyle,
-  type ViewStyle,
-} from 'react-native';
+import { type ImageStyle, StyleSheet, type TextStyle, type ViewStyle } from 'react-native';
 
 import { useContext, useMemo } from 'react';
 import {
@@ -20,9 +15,7 @@ import type { breakpointFn } from './makeBreakpointFunction.js';
  */
 type RNStyle = ViewStyle | TextStyle | ImageStyle;
 
-type MaybeBoolToStringKeys<B> = B extends boolean
-  ? 'true' | 'false'
-  : NonNullable<B>;
+type MaybeBoolToStringKeys<B> = B extends boolean ? 'true' | 'false' : NonNullable<B>;
 
 type VariantType = Record<string, string | number | boolean | undefined | null>;
 
@@ -85,17 +78,13 @@ export function makeUseStyles<T extends StyleDefinition<any, any>>(
   styleDefinition: StyleDefinitionMaybeFunction<Record<string, never>, T>
 ): useStyles<T>;
 
-export function makeUseStyles<
-  Variants extends VariantType = Record<string, never>,
->(): <T extends StyleDefinition<any, Variants>>(
+export function makeUseStyles<Variants extends VariantType = Record<string, never>>(): <
+  T extends StyleDefinition<any, Variants>,
+>(
   styleDefinition: StyleDefinitionMaybeFunction<Variants, T>
-) => Variants extends Record<string, never>
-  ? useStyles<T>
-  : useStylesWithVariants<T, Variants>;
+) => Variants extends Record<string, never> ? useStyles<T> : useStylesWithVariants<T, Variants>;
 
-export function makeUseStyles(
-  maybeStyleDefinition?: StyleDefinitionMaybeFunction<any, any>
-) {
+export function makeUseStyles(maybeStyleDefinition?: StyleDefinitionMaybeFunction<any, any>) {
   // if the user passed a style definition here don't curry the inner function.
   if (maybeStyleDefinition) {
     return buildUseStylesHook(maybeStyleDefinition);
@@ -103,9 +92,7 @@ export function makeUseStyles(
 
   // This inner function exists so that Variants can be explicitly set as a generic
   // while still inferring the correct type T for the styles themselves
-  return function innerMakeUseStyle(
-    styleDefinition: StyleDefinitionMaybeFunction<any, any>
-  ) {
+  return function innerMakeUseStyle(styleDefinition: StyleDefinitionMaybeFunction<any, any>) {
     return buildUseStylesHook(styleDefinition) as any;
   };
 }
@@ -113,27 +100,20 @@ export function makeUseStyles(
 /**
  * Takes in a style definition and builds the `useStyles` hook.
  */
-function buildUseStylesHook<
-  T extends StyleDefinition<T, Variants>,
-  Variants extends VariantType,
->(styleDefinition: StyleDefinitionMaybeFunction<Variants, T>) {
+function buildUseStylesHook<T extends StyleDefinition<T, Variants>, Variants extends VariantType>(
+  styleDefinition: StyleDefinitionMaybeFunction<Variants, T>
+) {
   // Definition does not depend on context so we can use a simple implementation
   if (typeof styleDefinition !== 'function' || styleDefinition.length === 0) {
     const useStyles = (variants?: Variants): ReturnStyleDefinition<T> => {
       return useMemo(() => {
         if (variants) {
-          const withCtx = applyContext(
-            styleDefinition,
-            {} as StyleKitContextValue
-          );
+          const withCtx = applyContext(styleDefinition, {} as StyleKitContextValue);
 
           const withVariants = applyStyleVariants(withCtx, variants);
           return StyleSheet.create(withVariants);
         } else {
-          const withCtx = applyContext(
-            styleDefinition,
-            {} as StyleKitContextValue
-          );
+          const withCtx = applyContext(styleDefinition, {} as StyleKitContextValue);
           return StyleSheet.create(withCtx);
         }
       }, [...(variants ? Object.values(variants) : [])]);
@@ -149,8 +129,7 @@ function buildUseStylesHook<
   const useStyles = (variants?: Variants): ReturnStyleDefinition<T> => {
     const ctx = useContext(StyleKitContext);
 
-    if (!ctx)
-      throw new Error('useStyles must be used within a StyleKitProvider');
+    if (!ctx) throw new Error('useStyles must be used within a StyleKitProvider');
 
     return useMemo(() => {
       if (variants) {
@@ -191,9 +170,7 @@ function applyStyleVariants<T, Variants extends VariantType>(
 ) {
   const result: any = {};
   for (const key in styles) {
-    const { variants, compoundVariants, ...baseStyle } = styles[
-      key
-    ] as unknown as {
+    const { variants, compoundVariants, ...baseStyle } = styles[key] as unknown as {
       variants?: {
         [K in keyof Variants]?: {
           [Vv in MaybeBoolToStringKeys<Variants[K]>]?: RNStyle;
@@ -218,10 +195,7 @@ function applyStyleVariants<T, Variants extends VariantType>(
 
           if (appliedVariantValue === variantValue) {
             // Apply the styles set
-            Object.assign(
-              result[key],
-              (variants[variantKey] as any)[variantValue]
-            );
+            Object.assign(result[key], (variants[variantKey] as any)[variantValue]);
           }
         }
       }
@@ -250,10 +224,7 @@ function applyStyleVariants<T, Variants extends VariantType>(
   return result;
 }
 
-function applyContext<
-  T extends StyleDefinition<T, Variants>,
-  Variants extends VariantType,
->(
+function applyContext<T extends StyleDefinition<T, Variants>, Variants extends VariantType>(
   definition: StyleDefinitionMaybeFunction<Variants, T>,
   ctx: StyleKitContextValue
 ): T & StyleDefinition<any, Variants> {

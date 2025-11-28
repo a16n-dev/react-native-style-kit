@@ -4,9 +4,7 @@ type ZeroBreakpoint<T> = {
   [K in keyof T]: T[K] extends 0 ? K : never;
 }[keyof T];
 
-type hasZeroBreakpoint<T> = [ZeroBreakpoint<StyleKitBreakpoints>] extends [
-  never,
-]
+type hasZeroBreakpoint<T> = [ZeroBreakpoint<StyleKitBreakpoints>] extends [never]
   ? false
   : T extends Record<ZeroBreakpoint<StyleKitBreakpoints>, any>
     ? true
@@ -36,9 +34,7 @@ export function makeBreakpointFn(
   }
 
   // Sort breakpoints by their values, largest to smallest
-  const sortedBreakpoints = Object.entries(breakpoints).sort(
-    (a, b) => b[1] - a[1]
-  );
+  const sortedBreakpoints = Object.entries(breakpoints).sort((a, b) => b[1] - a[1]);
 
   // Expect the smallest breakpoint to have a value of 0.
   if (sortedBreakpoints[sortedBreakpoints.length - 1][1] !== 0) {
@@ -50,8 +46,7 @@ export function makeBreakpointFn(
   // Sort breakpoints by value in ascending order
   const above = Object.keys(breakpoints).reduce(
     (acc, key) => {
-      acc[key] = <V>(value: V) =>
-        width >= breakpoints[key] ? value : undefined;
+      acc[key] = <V>(value: V) => (width >= breakpoints[key] ? value : undefined);
       return acc;
     },
     {} as Record<string, <V>(value: V) => V | undefined>
@@ -59,8 +54,7 @@ export function makeBreakpointFn(
 
   const below = Object.keys(breakpoints).reduce(
     (acc, key) => {
-      acc[key] = <V>(value: V) =>
-        width <= breakpoints[key] ? value : undefined;
+      acc[key] = <V>(value: V) => (width <= breakpoints[key] ? value : undefined);
       return acc;
     },
     {} as Record<string, <V>(value: V) => V | undefined>
