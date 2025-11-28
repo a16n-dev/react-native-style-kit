@@ -6,6 +6,7 @@ A Styling API for React Native, designed as a lightweight set of tools to quickl
 - 📏 Breakpoint logic
 - 🧩 Variants/compound variants inspired by CVA
 - 📱 Access to runtime values (safe area insets, screen dimensions) in stylesheets
+- 🔩 Presets for building powerful utility stylesheets, for a "tailwind-like" experience
 
 All with no babel/metro plugins, full compatibility with 3rd party components, and a focus on performance.
 
@@ -238,6 +239,32 @@ const useStyles = makeUseStyles(({ bp }) => ({
     })
   }
 }));
+```
+
+---
+
+## 🔩 Utility Stylesheets
+Having a set of utility styles for applying common styles such as margins, paddings, and flex properties is an especially powerful tool for composing UI. To help with this, `react-native-style-kit` provides a number of presets that can be used to compose utility stylesheets.
+
+```tsx
+import { preset, dynamicSpacing } from 'react-native-style-kit/utility';
+
+// Create a stylesheet by composing different utility presets
+const a = StyleSheet.create({
+    // Preset includes a predefined set of utility styles covering flexbox, positioning, opacity, and more
+    ...preset,
+    // You can also generate spacing tokens
+    ...dynamicSpacing({
+        s: 12,
+        m: 16,
+        l: 24,
+    } as const)
+});
+
+// Usage
+<View style={[a.flex_row, a.px_m]}>
+    <Text style={[a.text_center, a.opacity_50]}>Hello, world!</Text>
+</View>
 ```
 
 ---
